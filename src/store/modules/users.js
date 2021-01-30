@@ -13,27 +13,27 @@ const getters = {
 // actions
 const actions = {
   signIn({ commit }, user) {
-    // calling the reducers (mutation)
+    // calling the reducers (mutation)   
     commit(SIGN_IN, user);
   },
   signOut({ commit }) {
     commit(SIGN_OUT);
   },
-  createUser({commit}, userInfo) {
-    commit(CREATE_USER, userInfo);
+  createUser({commit}, user) {
+    commit(CREATE_USER, user); 
   }
 };
 
 // mutations (similar to reducers in redux)
 const mutations = {
   [SIGN_IN](state, user) {
-    state.user = {email: user};
+    state.user = user;
   },
   [SIGN_OUT](state) {
     state.user = null;
   },
-  [CREATE_USER] (state, userInfo) {
-    state.user = userInfo.email;
+  [CREATE_USER](state, user) {
+    state.user = user;
   }
 };
 

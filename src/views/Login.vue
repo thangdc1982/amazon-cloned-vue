@@ -32,6 +32,7 @@
 </template>
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import { auth } from '../firebase';
 
 export default {
   name: "Login",
@@ -52,20 +53,24 @@ export default {
     ...mapActions(['signIn', 'createUser']),
     login(e) {
       e.preventDefault();
-      this.signIn('Thang');
-      // navigate to home page
-      this.$router.push('/');
-
+      auth 
+        .signInWithEmailAndPassword(this.email, this.password)
+        .then(authed => {
+          this.signIn(authed.user);
+          // navigate to home page
+          this.$router.push('/'); 
+        })
+        .catch(error => alert(error.message));
     },
     register() {
-      this.createUser({
-        email: this.email,
-        password: this.password
-      });
-      // create a new account
-      console.log('create a new account');
-      // navigate to home page
-      this.$router.push('/');
+      auth 
+        .createUserWithEmailAndPassword(this.email, this.password)
+        .then (authed => {
+          this.createUser(authed.user); 
+          // navigate to home page
+          this.$router.push('/');      
+        })     
+        .catch(error => alert(error.message));        
     }
   }
 }

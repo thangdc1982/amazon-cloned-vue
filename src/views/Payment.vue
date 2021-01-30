@@ -38,11 +38,10 @@
           </div>
           <div class="payment-details">
             <form onSubmit={handleSubmit}>
-              <StripeElementCard 
-                ref="elementRef"
-                :pk="pulishableKey"
-                @token="tokenCreated"
-                @change="handleChange"></StripeElementCard>
+              <StripeElementCard
+                pk="pkKey"
+              >
+              </StripeElementCard>
               <br />
               <div class="payment-priceContainer">
                 <h3>Order Total: ${{getTotalPrice}}</h3>
@@ -68,25 +67,22 @@ export default {
   components: {
     Header,  
     CartItem,  
-    StripeElementCard
+    StripeElementCard    
   },
   data() {
-    this.pulishableKey = "adfshdshf"; // process.env.STRIPE_PUBLISHABLE_KEY;
     return {
       processing: false, // Processing payment
-      disbale: true,
+      disbale: false,
       succeeded: false, // Completed payment
       token: null,
+      pkKey: "pk_test_51I3ShBJ79DiDp1GyulLxpNq3xrPo25AbBukeggpmh25HjnS6rSnM0w4LHSPxhKKk09PR4XeQT4YEMxmlEmX6z0MZ00fCk84Drb"
     }
   },
   computed: mapGetters(['user', 'allItems', 'getTotalPrice']),
   methods: {
-    handleChange() {},
-    tokenCreated (token) {
-      console.log(token);
-      // handle the token
-      // send it to your server
-    },
+    handleChange(e) {
+      e.preventDefault();      
+    }
   }
 }
 </script>
