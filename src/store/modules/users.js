@@ -1,4 +1,4 @@
-import { SIGN_IN, SIGN_OUT } from '../mutation-types'
+import { SIGN_IN, SIGN_OUT, CREATE_USER } from '../mutation-types'
 
 // state
 const state = {
@@ -18,16 +18,22 @@ const actions = {
   },
   signOut({ commit }) {
     commit(SIGN_OUT);
+  },
+  createUser({commit}, userInfo) {
+    commit(CREATE_USER, userInfo);
   }
 };
 
 // mutations (similar to reducers in redux)
 const mutations = {
   [SIGN_IN](state, user) {
-    state.user = user;
+    state.user = {email: user};
   },
   [SIGN_OUT](state) {
     state.user = null;
+  },
+  [CREATE_USER] (state, userInfo) {
+    state.user = userInfo.email;
   }
 };
 
